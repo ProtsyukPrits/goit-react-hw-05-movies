@@ -1,34 +1,32 @@
-import { trendingFetch } from 'services/api';
-import { useEffect, useState} from 'react';
-const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
-
+import { getTrendingFetch} from 'services/api';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import {Container,Item, Title } from './Home.styled';
 
 export const Home = () => {
-  const [data, setData] = useState([]);
-
+  const [trending, setTrending] = useState([]);
 
   useEffect(() => {
-    const dataFetch = async () => {
-      const data = await trendingFetch()
-      console.log(data.results)
-      setData(data.results)
-    }
-    dataFetch()
-  }, [])
- 
+    const dataTrendingFetch = async () => {
+      const res = await getTrendingFetch();
+      console.log('trandRes', res.results);
+      setTrending(res.results);
+    };
+    dataTrendingFetch();
+  }, []);
+
   return (
-    <>
-      {data.map(({ poster_path, original_title, id }) => (
-        <a>
-          <img
-            key={id}
-            src={IMAGE_URL + poster_path}
-            alt={original_title}
-            width="300"
-            height="300"
-          />
-        </a>
+    <Container>
+       <Title>Trending today</Title>
+      {trending.map(({ original_title, name, id }) => (
+        <Item
+          to={`/movies/${id}`}
+          key={id}
+          id={id}
+        >
+          {original_title || name}
+        </Item>
       ))}
-    </>
+    </Container>
   );
 };
