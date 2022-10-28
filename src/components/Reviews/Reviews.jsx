@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieReviewsFetch } from 'services/api';
+import {PropTypes} from 'prop-types'
 
 export const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -31,3 +32,10 @@ export const Reviews = () => {
     </div>
   );
 };
+
+Reviews.propTypes = {
+  id: PropTypes.number,
+  content: PropTypes.string,
+  author: PropTypes.string,
+}
+

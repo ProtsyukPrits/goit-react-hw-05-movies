@@ -9,9 +9,9 @@ const getTrendingFetch = async () => {
   return fetch.data;
 };
 
-const getSearchFetch = async query => {
+const getSearchFetch = async querySearch => {
   const fetch = await axios.get(
-    `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=1&include_adult=false`
+    `${BASE_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${querySearch}&page=1&include_adult=false`
   );
   return fetch.data;
 };

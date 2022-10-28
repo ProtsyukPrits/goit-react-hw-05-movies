@@ -1,17 +1,24 @@
-const SearchBox = ({ onSubmit }) => {
+import {PropTypes} from 'prop-types'
+
+const SearchBar = ({ onSubmit }) => {
   return (
     <>
       <form autoComplete="off" onSubmit={onSubmit}>
         <input
           type="text"
           name="query"
-          placeholder="Search images and photoes"
+          placeholder="Search films"
         />
 
-        <button type="submit"></button>
+        <button type="submit">Search</button>
       </form>
     </>
   );
 };
 
-export default SearchBox;
+export default SearchBar;
+
+
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+}

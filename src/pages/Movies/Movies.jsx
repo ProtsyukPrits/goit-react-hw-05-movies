@@ -1,40 +1,39 @@
 import MoviesList from 'components/MoviesList';
-import SearchBox from 'components/SearchBar';
+import SearchBar from 'components/SearchBar';
 import { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import { getSearchFetch } from 'services/api';
 
 export const Movies = () => {
-  
   const [search, setSearch] = useState([]);
-  const [query, setQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const querySearch = searchParams.get('query') ?? '';
+
 
   useEffect(() => {
-    if (!query) return;
+    if (querySearch === '') return;
 
     const dataSearchFetch = async () => {
-      const res = await getSearchFetch(query);
+      const res = await getSearchFetch(querySearch);
       const search = res.results;
-      // console.log('res', res);
-      setSearch([...search ]);
+      setSearch(search);
     };
     dataSearchFetch();
-  }, [query]);
+  }, [querySearch]);
 
   const handleSubmit = e => {
     e.preventDefault();
+    const form = e.currentTarget;
     // if (query.trim() === '') return; // need toaster
-    setQuery(e.target.elements.query.value);
-    e.target.reset();
-   
+    setSearchParams({ query: form.elements.query.value });
+    form.reset();
   };
-  console.log('query1',query)
-  console.log('search', search);
+
   return (
     <div>
       <div>
-        <SearchBox onSubmit={handleSubmit}></SearchBox>
-        <MoviesList items={search}></MoviesList>
+        <SearchBar onSubmit={handleSubmit}></SearchBar>
+        {search && <MoviesList items={search}></MoviesList>}
       </div>
 
       <Outlet />

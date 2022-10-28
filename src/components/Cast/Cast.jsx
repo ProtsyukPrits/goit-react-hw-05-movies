@@ -1,6 +1,8 @@
 import { getMovieCreditsFetch } from 'services/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { ActorDetails, Photo } from './Cast.styled';
+import { PropTypes } from 'prop-types'
 
 export const Cast = () => {
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -20,12 +22,12 @@ export const Cast = () => {
   console.log('credits', credits);
 
   return (
-    <div>
-      {credits.map(({ cast_id, profile_path, character, name }) => (
+    <ActorDetails>
+      {credits.map(( { cast_id, profile_path, character, name  }) => (
         <div key={cast_id}>
-          <img
+          <Photo
             src={`${IMAGE_URL}${profile_path}`}
-            alt=""
+            alt={name}
             width="200"
             height="200"
           />
@@ -33,6 +35,15 @@ export const Cast = () => {
           <p>Character: {character}</p>
         </div>
       ))}
-    </div>
+    </ActorDetails>
   );
+};
+
+Cast.propTypes = {
+  credits: PropTypes.shape({
+    cast_id: PropTypes.string.isRequired,
+    profile_path: PropTypes.string.isRequired,
+    character: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
 };

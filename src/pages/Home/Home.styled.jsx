@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link} from "react-router-dom";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -9,7 +9,7 @@ export const Title = styled.h2`
 margin: 8px 0;
 `;
 
-export const Item = styled(NavLink)`
+export const Item = styled(Link)`
   color: blue;
   font-family: 'Oxygen';
 `;
