@@ -1,10 +1,11 @@
 import MoviesList from 'components/MoviesList';
+import { Suspense } from 'react';
 import SearchBar from 'components/SearchBar';
 import { useEffect, useState } from 'react';
 import { Outlet, useSearchParams } from 'react-router-dom';
 import { getSearchFetch } from 'services/api';
 
-export const Movies = () => {
+const Movies = () => {
   const [search, setSearch] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const querySearch = searchParams.get('query') ?? '';
@@ -36,7 +37,11 @@ export const Movies = () => {
         {search && <MoviesList items={search}></MoviesList>}
       </div>
 
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
+
+export default Movies;

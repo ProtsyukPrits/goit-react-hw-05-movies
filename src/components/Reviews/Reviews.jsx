@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMovieReviewsFetch } from 'services/api';
 import {PropTypes} from 'prop-types'
 
-export const Reviews = () => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
 
@@ -39,3 +39,4 @@ Reviews.propTypes = {
   author: PropTypes.string,
 }
 
+export default Reviews;

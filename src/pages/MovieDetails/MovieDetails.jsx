@@ -1,11 +1,12 @@
+import { Suspense } from 'react';
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getMovieDetailsFetch } from 'services/api';
 import LinkGoBack from 'components/LinkGoBack';
 import { AddInformation, DetailsDescriptions, GenresInfo, MovieDetailsPhoto, Photo } from './MovieDetails.styled';
 import {PropTypes} from 'prop-types'
-
-export const MovieDetails = () => {
+ 
+const MovieDetails = () => {
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
   const [details, setDetails] = useState([]);
   const { movieId } = useParams();
@@ -32,8 +33,7 @@ export const MovieDetails = () => {
           genres,
           vote_average,
         }) => (
-            <MovieDetailsPhoto
-           key={id}>
+          <MovieDetailsPhoto key={id}>
             <Photo
               src={`${IMAGE_URL}${backdrop_path}`}
               alt=""
@@ -54,8 +54,7 @@ export const MovieDetails = () => {
                 ))}
               </GenresInfo>
             </DetailsDescriptions>
-            </MovieDetailsPhoto>
-          
+          </MovieDetailsPhoto>
         )
       )}
       <AddInformation>
@@ -63,7 +62,9 @@ export const MovieDetails = () => {
         <Link to="cast">Cast</Link>
         <Link to="reviews">Reviews</Link>
       </AddInformation>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };
@@ -78,3 +79,5 @@ MovieDetails.propTypes = {
   genres: PropTypes.array,
   name: PropTypes.string,
 };
+
+export default MovieDetails;

@@ -1,10 +1,10 @@
-import { getTrendingFetch} from 'services/api';
+import { getTrendingFetch } from 'services/api';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Container, Item, Title } from './Home.styled';
-import {PropTypes} from 'prop-types'
+import { PropTypes } from 'prop-types';
 
-export const Home = () => {
+const Home = () => {
   const location = useLocation();
   const [trending, setTrending] = useState([]);
 
@@ -18,14 +18,9 @@ export const Home = () => {
 
   return (
     <Container>
-       <Title>Trending today</Title>
+      <Title>Trending today</Title>
       {trending.map(({ original_title, name, id }) => (
-        <Item
-          to={`/movies/${id}`}
-          state={{from: location}}
-          key={id}
-          id={id}
-        >
+        <Item to={`/movies/${id}`} state={{ from: location }} key={id} id={id}>
           {original_title || name}
         </Item>
       ))}
@@ -37,4 +32,6 @@ Home.propTypes = {
   original_title: PropTypes.string,
   name: PropTypes.string,
   id: PropTypes.number,
-}
+};
+
+export default Home;

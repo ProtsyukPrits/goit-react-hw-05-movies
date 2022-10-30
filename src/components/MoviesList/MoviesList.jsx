@@ -17,10 +17,12 @@ const MoviesList = ({ items }) => {
   );
 };
 
-export default MoviesList;
+
 
 MoviesList.propTypes = {
   items: PropTypes.array.isRequired,
   title: PropTypes.string,
   id: PropTypes.number,
 };
+
+export default MoviesList;

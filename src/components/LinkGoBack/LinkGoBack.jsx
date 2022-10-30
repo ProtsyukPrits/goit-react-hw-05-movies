@@ -13,10 +13,10 @@ const LinkGoBack = ({ to, children }) => {
   );
 };
 
-export default LinkGoBack;
 
 
 LinkGoBack.propTypes = {
   children: PropTypes.string.isRequired,
 }
 
+export default LinkGoBack

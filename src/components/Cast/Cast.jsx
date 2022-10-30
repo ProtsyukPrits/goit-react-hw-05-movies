@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ActorDetails, Photo } from './Cast.styled';
 import { PropTypes } from 'prop-types'
 
-export const Cast = () => {
+const Cast = () => {
   const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
   const [credits, setCredits] = useState([]);
   const { movieId } = useParams();
@@ -39,6 +39,7 @@ export const Cast = () => {
   );
 };
 
+
 Cast.propTypes = {
   credits: PropTypes.shape({
     cast_id: PropTypes.string.isRequired,
@@ -47,3 +48,6 @@ Cast.propTypes = {
     name: PropTypes.string.isRequired,
   }),
 };
+
+
+export default Cast;
